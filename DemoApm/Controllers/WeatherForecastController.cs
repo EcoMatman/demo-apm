@@ -20,7 +20,7 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<WeatherForecast> Get()
+    public async Task<IEnumerable<WeatherForecast>> Get()
     {
         var client = new ServiceBusClient("you-ServiceBus-connection-string");
         var sender = client.CreateSender("demoapmtopic");
@@ -33,7 +33,7 @@ public class WeatherForecastController : ControllerBase
             })
             .ToArray();
         
-        sender.SendMessageAsync(new ServiceBusMessage($"Temperature is: {wf.First().TemperatureC}"));
+        await sender.SendMessageAsync(new ServiceBusMessage($"Temperature is: {wf.First().TemperatureC}"));
 
         return wf;
     }
