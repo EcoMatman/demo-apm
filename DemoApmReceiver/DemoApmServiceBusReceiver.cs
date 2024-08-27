@@ -34,8 +34,6 @@ public class DemoApmServiceBusReceiver
 
         async Task MessageHandler(ProcessMessageEventArgs args)
         {
-            Agent.Tracer.CurrentTransaction?.CaptureErrorLog(new ErrorLog("[MessageHandler] Complete"));
-
             var body = args.Message.Body.ToString();
             Console.WriteLine($"Received: {body}");
             counter++;
