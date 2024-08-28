@@ -6,14 +6,12 @@ namespace DemoApmReceiver;
 
 public class DemoApmServiceBusReceiver
 {
-    public static async Task Receive(HttpClient httpClient)
+    public static async Task Receive()
     {
         var client = new ServiceBusClient(
             "your-ServiceBus-connection-string");
 
         var processor = client.CreateProcessor("apmtest", new ServiceBusProcessorOptions());
-
-        var counter = 0;
 
         try
         {
@@ -21,37 +19,29 @@ public class DemoApmServiceBusReceiver
             processor.ProcessErrorAsync += ErrorHandler;
 
             await processor.StartProcessingAsync();
+            
             Console.ReadKey();
             await processor.StopProcessingAsync();
+            Console.ReadKey();
         }
         finally
         {
             await processor.DisposeAsync();
             await client.DisposeAsync();
         }
+    }
 
-        return;
+    private static Task ErrorHandler(ProcessErrorEventArgs args)
+    {
+        Console.WriteLine(args.Exception.ToString());
+        return Task.CompletedTask;
+    }
 
-        async Task MessageHandler(ProcessMessageEventArgs args)
-        {
-            var body = args.Message.Body.ToString();
-            Console.WriteLine($"Received: {body}");
-            counter++;
-            if (counter >= 2)
-            {
-                await args.CompleteMessageAsync(args.Message);
-                return;
-            }
+    private static async Task MessageHandler(ProcessMessageEventArgs args)
+    {
+        var body = args.Message.Body.ToString();
+        Console.WriteLine($"Received: {body}");
 
-            await httpClient.GetStringAsync("https://localhost:44385/WeatherForecast");
-
-            await args.CompleteMessageAsync(args.Message);
-        }
-
-        Task ErrorHandler(ProcessErrorEventArgs args)
-        {
-            Console.WriteLine(args.Exception.ToString());
-            return Task.CompletedTask;
-        }
+        await args.CompleteMessageAsync(args.Message);
     }
 }

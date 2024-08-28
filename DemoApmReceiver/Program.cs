@@ -23,9 +23,8 @@ public static class Program
         using var host = CreateHostBuilder(args).Build();
         await host.StartAsync();
         var lifetime = host.Services.GetRequiredService<IHostApplicationLifetime>();
-
-        using var httpClient = new HttpClient();
-        await DemoApmServiceBusReceiver.Receive(httpClient);
+        
+        await DemoApmServiceBusReceiver.Receive();
 
         lifetime.StopApplication();
         await host.WaitForShutdownAsync();

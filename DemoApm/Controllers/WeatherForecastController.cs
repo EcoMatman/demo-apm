@@ -12,15 +12,8 @@ public class WeatherForecastController : ControllerBase
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
-    private readonly ILogger<WeatherForecastController> _logger;
-
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
-    {
-        _logger = logger;
-    }
-
-    [HttpGet(Name = "GetWeatherForecast")]
-    public async Task<IEnumerable<WeatherForecast>> Get()
+    [HttpGet(Name = "GetWeatherTemperature")]
+    public async Task<int> Get()
     {
         var client = new ServiceBusClient("you-ServiceBus-connection-string");
         var sender = client.CreateSender("demoapmtopic");
@@ -33,8 +26,10 @@ public class WeatherForecastController : ControllerBase
             })
             .ToArray();
         
-        await sender.SendMessageAsync(new ServiceBusMessage($"Temperature is: {wf.First().TemperatureC}"));
+        var sender = client.CreateSender("apmtest");
 
-        return wf;
+        await sender.SendMessageAsync(new ServiceBusMessage($"Temperature is: 5"));
+
+        return 5;
     }
 }
