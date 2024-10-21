@@ -30,4 +30,10 @@ public class WeatherForecastController : ControllerBase
 
         return 5;
     }
+
+    [HttpGet("exception", Name = "GetWeatherTemperatureException")]
+    public void GetWeatherTemperatureException()
+    {
+        throw new ApplicationException("Test exception.");
+    }
 }

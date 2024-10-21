@@ -8,10 +8,10 @@
 
     <ItemGroup>
         <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.18.1" />
-        <PackageReference Include="Elastic.Apm" Version="1.29.0" />
-        <PackageReference Include="Elastic.Apm.AspNetCore" Version="1.29.0" />
-        <PackageReference Include="Elastic.Apm.Elasticsearch" Version="1.29.0" />
-        <PackageReference Include="Elastic.Apm.NetCoreAll" Version="1.29.0" />
+        <PackageReference Include="Elastic.Apm" Version="1.30.0" />
+        <PackageReference Include="Elastic.Apm.AspNetCore" Version="1.30.0" />
+        <PackageReference Include="Elastic.Apm.Elasticsearch" Version="1.30.0" />
+        <PackageReference Include="Elastic.Apm.NetCoreAll" Version="1.30.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
 
