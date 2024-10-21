@@ -9,7 +9,7 @@
 
     <ItemGroup>
       <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.18.1" />
-      <PackageReference Include="Elastic.Apm.NetCoreAll" Version="1.29.0" />
+      <PackageReference Include="Elastic.Apm.NetCoreAll" Version="1.30.0" />
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
       <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.1" />
     </ItemGroup>
